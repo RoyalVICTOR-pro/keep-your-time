@@ -1,0 +1,42 @@
+body{
+    background-color: darkgreen;
+    margin: 0;
+}
+input, select{
+    width: 300px;
+    margin-bottom: 10px;
+}
+#first-activity{
+    background-color: brown;
+    z-index: 1;
+    width: 50%;
+    height: 100vh;
+}
+#lost-time{
+    background-color: darkred;
+    width: 1px;
+    height: 100vh;
+    position: absolute;
+    z-index: 1;
+    top: 0;
+}
+#first-activity-field{
+    display: block;
+    width: 400px;
+    align-content: center;
+    margin-left: 100px;
+}
+#second-activity-field{
+    display: block;
+    float: right;
+    width: 400px;
+    align-content: center;
+}
+#chat-noir{
+    width: auto;
+    height: 30vh;
+    position: absolute;
+    z-index: 2;
+    left: 0;
+    bottom: 0;
+}

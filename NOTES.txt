@@ -1,0 +1,35 @@
+Arrivée  sur un fond bicolore avec un logo dédié à l'application centré.
+Faire apparaître une popup qui contient :
+    - Choix de l'activité 1
+        v2 : Liste déroulante avec autocomplétion et possibilité d'ajouter un élément dans la liste
+        v2 : Possibilité de mettre plusieurs activité pour la première période
+    - Sélecteur heures/minutes/secondes pour l'activité 1
+    - Choix de l'activité 2
+        v2 : Liste déroulante avec autocomplétion et possibilité d'ajouter un élément dans la liste
+        v2 : Possibilité de mettre plusieurs activité pour la seconde période
+    - Sélecteur heures/minutes/secondes pour l'activité 2
+    - Bouton Lancer
+Au lancement, la popup se referme et fait apparaître le timer.
+Une icone réglage permet de refaire apparaître la popup pour modifier.
+Un bouton 'Cette activité est terminée' apparaîtra alors pour permettre d'indiquer que la première activité est terminée
+et qu'on passe à la deuxième.
+
+Design du timer :
+Le fond est séparée en 2 zones dont la taille est proportionnelle au temps alloué.
+On retirera une marge à gauche et à droite égale à la moitié de la taille du curseur dans le calcul.
+Cette marge sera colorée à gauche de la même couleur que l'activité 1 et à droite de la même couleur que l'activité 2
+On ne le verra donc pas.
+Un icône représente l'activité 1 et est centré dans la zone 1
+Un icône représente l'activité 2 et est centré dans la zone 2
+Une barre bicolore commencera après la marge de gauche et s'arrêtera avant la marge de droite.
+Elle représentera la progression pour le curseur.
+Cette barre devra être crantée/quadrillée pour permettre à l'enfant de se rendre compte de l'avancée du bonhomme.
+Un curseur (un petit personnage par exemple assis sur une flèche) avancera le long de la barre.
+Quand le curseur atteint la limite du temps de la première activité.
+Il continue à avancer mais une zone d'une 3eme couleur en fond montrera le temps perdu sur la deuxième activité.
+      v2 : Il serait bien de mettre en place le déclenchement de petits sons au passage de la première activité à la deuxieme.
+
+Définir le nom
+Images nécessaires : Logo, Personnage/Curseur
+Définir les couleurs des 3 zones.
+Image par Activité : Rangement, Travail, Préparation, Repas, Jeu, Dessin animé, Atelier Cuisine, Sortie
