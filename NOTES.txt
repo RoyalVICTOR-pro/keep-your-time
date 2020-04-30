@@ -3,16 +3,34 @@ Faire apparaître une popup qui contient :
     - Choix de l'activité 1
         v2 : Liste déroulante avec autocomplétion et possibilité d'ajouter un élément dans la liste
         v2 : Possibilité de mettre plusieurs activité pour la première période
-    - Sélecteur heures/minutes/secondes pour l'activité 1
+    - Sélecteur heures/minutes pour l'activité 1
     - Choix de l'activité 2
         v2 : Liste déroulante avec autocomplétion et possibilité d'ajouter un élément dans la liste
         v2 : Possibilité de mettre plusieurs activité pour la seconde période
     - Sélecteur heures/minutes/secondes pour l'activité 2
     - Bouton Lancer
+    - Bouton Annuler grisé à l'origine et visible si le timer est en cours
 Au lancement, la popup se referme et fait apparaître le timer.
 Une icone réglage permet de refaire apparaître la popup pour modifier.
 Un bouton 'Cette activité est terminée' apparaîtra alors pour permettre d'indiquer que la première activité est terminée
 et qu'on passe à la deuxième.
+
+Organisation du développement :
+Tout le HTML dans le fichier
+CSS pour la mise en forme intiale
+    Voir s'il ne faut pas une classe pour l'état initiale qu'on pourrait enlever et remettre.
+JS pour contrôler l'apparition de la popup
+Animation du timer en Greensock
+
+Une partie dédiée à la configuration
+    Liste des activités
+    Valeur de conversion en minutes et en heures pour pouvoir tester plus facilement
+
+Une "partie" dédiée à la génération et apparition du formulaire
+Une "partie" dédiée à l'enregistrement des choix faits dans le formulaire
+Une "partie" dédiée au timer
+
+
 
 Design du timer :
 Le fond est séparée en 2 zones dont la taille est proportionnelle au temps alloué.
@@ -29,7 +47,28 @@ Quand le curseur atteint la limite du temps de la première activité.
 Il continue à avancer mais une zone d'une 3eme couleur en fond montrera le temps perdu sur la deuxième activité.
       v2 : Il serait bien de mettre en place le déclenchement de petits sons au passage de la première activité à la deuxieme.
 
-Définir le nom
+
+Définir le nom : Keep Your Time
 Images nécessaires : Logo, Personnage/Curseur
-Définir les couleurs des 3 zones.
+Définir les couleurs des 3 zones :
+Rouge : #FF785B
+Orange : #FFCA5B
+Vert : #90FF5B
+
 Image par Activité : Rangement, Travail, Préparation, Repas, Jeu, Dessin animé, Atelier Cuisine, Sortie
+
+Logo :  icon-013
+Paramètres : icon-007
+
+Rangement : icon-179
+Travail : icon-079
+Préparation : icon-240
+Repas : icon-196 ou icon-089
+Jeu : icon-076
+Dessin animé : icon-024
+Atelier Cuisine : icon-197
+Sortie : icon-037
+
+Activité terminée : icon-211
+Bonhomme : icon-303
+Curseur : icon-002
