@@ -12,14 +12,15 @@
 <div id="first-activity-background">
     <span id="first-activity-icon"></span>
     <h2 id="first-activity-name" class="activity-name"></h2>
-    <span id="finish-button"></span>
+    <button id="stop-timer-button">Première activité terminée</button>
+</div>
+<div id="won-time"></div>
+<div id="second-activity-background">
+    <span id="second-activity-icon"></span>
+    <h2 id="second-activity-name" class="activity-name"></h2>
 </div>
 <div id="lost-time"></div>
-<div id="second-activity-background">
-    <span id="settings-button"></span>
-    <span id="second-activity-icon"></span>
-    <h2 id="second-activity-name"></h2>
-</div>
+<span id="settings-button"></span>
 <div id="right-margin"></div>
 <div id="cursor">
     <span id="caracter"></span>
@@ -30,6 +31,7 @@
 <div id="popup">
     <span id="logo"></span>
     <h2 id="app-name">Keep your time</h2>
+    <span id="error"></span>
     <label for="first-activity-list">Sélectionnez une première activité</label>
     <select id="first-activity-list" name="first-activity-list">
         <option value="">-- Votre choix --</option>
@@ -43,8 +45,8 @@
     <label for="second-activity-time">Durée de la seconde activité</label>
     <input type="time" id="second-activity-time" name="second-activity-time">
     <div class="button-container">
-    <button id="cancel">Annuler</button>
-    <button id="launch">Lancer</button>
+        <button id="cancel" disabled>Annuler</button>
+        <button id="launch">Lancer</button>
     </div>
 </div>
 </body>
