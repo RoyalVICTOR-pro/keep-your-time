@@ -10,13 +10,13 @@
 <body>
 <div id="left-margin"></div>
 <div id="first-activity-background">
-    <span id="first-activity-icon"></span>
+    <img id="first-activity-icon" src=""/>
     <h2 id="first-activity-name" class="activity-name"></h2>
     <button id="stop-timer-button">Première activité terminée</button>
 </div>
 <div id="won-time"></div>
 <div id="second-activity-background">
-    <span id="second-activity-icon"></span>
+    <img id="second-activity-icon" src=""/>
     <h2 id="second-activity-name" class="activity-name"></h2>
 </div>
 <div id="lost-time"></div>
@@ -37,13 +37,13 @@
         <option value="">-- Votre choix --</option>
     </select>
     <label for="first-activity-time">Durée de la première activité</label>
-    <input type="time" id="first-activity-time" name="first-activity-time">
+    <input type="time" id="first-activity-duration" name="first-activity-duration">
     <label for="second-activity-list">Sélectionnez une seconde activité</label>
     <select id="second-activity-list" name="second-activity-list">
         <option value="">-- Votre choix --</option>
     </select>
     <label for="second-activity-time">Durée de la seconde activité</label>
-    <input type="time" id="second-activity-time" name="second-activity-time">
+    <input type="time" id="second-activity-duration" name="second-activity-duration">
     <div class="button-container">
         <button id="cancel" disabled>Annuler</button>
         <button id="launch">Lancer</button>

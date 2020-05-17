@@ -12,7 +12,8 @@
   "license": "ISC",
   "dependencies": {
     "@babel/polyfill": "^7.0.0",
-    "babel-polyfill": "^6.26.0"
+    "babel-polyfill": "^6.26.0",
+    "gsap": "^3.2.6"
   },
   "devDependencies": {
     "@babel/core": "^7.1.0",

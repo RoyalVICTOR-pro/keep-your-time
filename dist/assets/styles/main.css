@@ -90,11 +90,8 @@ body{
 #first-activity-icon, #second-activity-icon{
     z-index: 2;
 }
-#first-activity-icon:before, #second-activity-icon:before{
-    color: var(--darkIcons);
-    font-family: CaptainIcon;
-    font-size: 7vw;
-    /* content:"\e72e"; */
+#first-activity-icon, #second-activity-icon{
+    width: 50px;
 }
 .activity-name{
     font-family: MyRoboto;
@@ -215,10 +212,10 @@ body{
     font-size: 1rem;
     margin-bottom: 1vh;
     padding-bottom: 1vh;
+    display: block;
 }
-#error:before{
+#error span{
     font-family: CaptainIcon;
-    content: "\e694";
     font-size: 2rem;
     margin-right: 1vw;
 }
@@ -233,7 +230,7 @@ body{
 }
 #popup input{
     margin-bottom: 3vh;
-    width: 5vw;
+    width: 6vw;
     overflow: visible;
 }
 #popup button{
@@ -251,7 +248,7 @@ body{
     font-size: 16px;
 }
 #popup .button-container{
-    margin-top: 5vh;
+    margin-top: 2vh;
     width: 100%;
     display: flex;
     justify-content: space-around;
