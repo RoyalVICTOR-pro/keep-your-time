@@ -74,20 +74,27 @@ export default class Form {
         let split = pTimeInputValue.split(":");
         let timeInMinutes;
         if(split[0]!="00")
-            timeInMinutes = split[0]*60+split[1];
+            timeInMinutes = parseInt(split[0])*60+parseInt(split[1]);
         else
-            timeInMinutes = split[1];
+            timeInMinutes = parseInt(split[1]);
         return timeInMinutes;
     }
     
     show()
     {
+        this.FORM_POPUP.style.display = 'flex';
+        this.FORM_MODAL.style.display = 'block';
         this.anim_modal.play();
         this.anim_popup.play();
     }
 
     hide()
     {
+        /*      
+        this.FORM_POPUP.style.display = 'none';
+        this.FORM_MODAL.style.display = 'none'; 
+        */
+        // TODO : Trouver un moyen de masquer les éléments une fois que l'anim est finie.
         this.anim_modal.reverse();
         this.anim_popup.reverse();
     }

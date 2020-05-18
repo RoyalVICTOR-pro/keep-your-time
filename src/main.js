@@ -4,7 +4,7 @@ import Timer from "./Classes/class.timer";
 import Form from "./Classes/class.form";
 
 window.onload = function () {
-    // const SETTINGS_BUTTON = document.getElementById("settings-button");
+    const SETTINGS_BUTTON = document.getElementById("settings-button");
     let appConfig = new Config();
     let appForm = new Form(appConfig.activitiesList, appConfig.isTestMode);
     let appTimer = new Timer(appConfig.activitiesList, appConfig.minuteDuration);
@@ -20,15 +20,16 @@ window.onload = function () {
             appTimer.stopAllTimers();
 
         appTimer.prepare(e.detail.userChoices);
-        appTimer.addEventListener("timerReady", launchTimer(e));
+        document.addEventListener("timerReady", launchTimer(e));
     }
 
+    
     function launchTimer(e) {
         appForm.hide();
         appTimer.start();
         showSettingsButton();
     }
-
+    
     function showSettingsButton() {
         SETTINGS_BUTTON.style.opacity = 0;
         SETTINGS_BUTTON.style.display = 'initial';
@@ -39,12 +40,17 @@ window.onload = function () {
     function openSettings() {
         appForm.show();
         SETTINGS_BUTTON.removeEventListener("click", openSettings);
-        appForm.addEventListener("changeTimerCancelled", showSettingsButton);
+        document.addEventListener("changeTimerCancelled", closeSettings);
         
 
         let animSettingsButton = gsap.to(SETTINGS_BUTTON, {opacity: 0, duration: 1, ease: "none"});
     }
 
+    function closeSettings()
+    {
+        appForm.hide();
+        showSettingsButton();
+    }
     /*
     // Début version 1
 
