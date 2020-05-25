@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <title>Keep Your Time</title>
     <link rel="stylesheet" href="assets/styles/main.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.2.6/gsap.min.js"></script>
     <script src="bundle.js"></script>
 </head>
 <body>
@@ -12,7 +11,6 @@
 <div id="first-activity-background">
     <img id="first-activity-icon" src=""/>
     <h2 id="first-activity-name" class="activity-name"></h2>
-    <button id="stop-timer-button">Première activité terminée</button>
 </div>
 <div id="won-time"></div>
 <div id="second-activity-background">
@@ -26,6 +24,7 @@
     <span id="caracter"></span>
     <span id="cursor-pointer"></span>
 </div>
+<button id="stop-timer-button">Première activité terminée</button>
 <div id="timeline"></div>
 <div id="modal"></div>
 <div id="popup">
@@ -37,13 +36,13 @@
         <option value="">-- Votre choix --</option>
     </select>
     <label for="first-activity-time">Durée de la première activité</label>
-    <input type="time" id="first-activity-duration" name="first-activity-duration">
+    <input type="time" id="first-activity-duration" name="first-activity-duration" value="00:00">
     <label for="second-activity-list">Sélectionnez une seconde activité</label>
     <select id="second-activity-list" name="second-activity-list">
         <option value="">-- Votre choix --</option>
     </select>
     <label for="second-activity-time">Durée de la seconde activité</label>
-    <input type="time" id="second-activity-duration" name="second-activity-duration">
+    <input type="time" id="second-activity-duration" name="second-activity-duration" value="00:00">
     <div class="button-container">
         <button id="cancel" disabled>Annuler</button>
         <button id="launch">Lancer</button>

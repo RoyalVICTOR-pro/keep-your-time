@@ -11,6 +11,6 @@ export default class Config {
             {icon: "assets/images/037.svg", name: "Sortie"}
         ];
         this.minuteDuration = 10; // Utile pour les tests
-        this.isTestMode = true; // Utile pour les tests
+        this.isTestMode = false; // Utile pour les tests
     }
 }
