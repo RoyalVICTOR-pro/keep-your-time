@@ -1,7 +1,8 @@
 import { gsap } from "gsap";
+
 export default class Form {
     constructor(pActivitiesList, pTestMode = false) {
-        // Eléments HTML utiles
+        // Elément(s) HTML manipulé(s)
         this.FORM_POPUP = document.getElementById("popup");
         this.FORM_MODAL = document.getElementById("modal");
         this.FIRST_ACTIVITY_LIST = document.getElementById("first-activity-list");
@@ -12,22 +13,21 @@ export default class Form {
         this.LAUNCH_BUTTON = document.getElementById("launch");
         this.ERROR_MESSAGE_AREA = document.getElementById("error");
 
+        // Préparation des animations d'apparition et de disparition de la popup du formulaire
         this.modalShowAnimation = gsap.to(this.FORM_MODAL, {opacity: 0.7, duration: 1, ease: "none"}).pause();
         this.popupShowAnimation = gsap.to(this.FORM_POPUP, {opacity: 1, duration: 1, ease: "none"}).pause();
         
         this.modalHideAnimation = gsap.to(this.FORM_MODAL, {opacity: 0, duration: 1, ease: "none"}).pause();
         this.popupHideAnimation = gsap.to(this.FORM_POPUP, {opacity: 0, duration: 1, ease: "none", onComplete:this.disableForm.bind(this)}).pause();
         
-
-
+        // Remplissage des listes d'activités à partir des activités disponible dans la configuration
         this.ACTIVITIES_LIST = pActivitiesList;
         this.ACTIVITIES_LIST.forEach((element,key) => {
             this.FIRST_ACTIVITY_LIST[key] = new Option(element.name, key);
             this.SECOND_ACTIVITY_LIST[key] = new Option(element.name, key);
         });
         
-        
-
+        // Mise en place de valeur par défaut pour les tests
         this.TEST_MODE = pTestMode; 
         if(this.TEST_MODE) {
             this.FIRST_ACTIVITY_LIST.value = 1;
@@ -36,11 +36,12 @@ export default class Form {
             this.SECOND_ACTIVITY_DURATION.value = "00:03";
         }
 
-        this.LAUNCH_BUTTON.addEventListener("click", this.checkForm.bind(this));
-        
+        // Attente de validation du formulaire
+        this.LAUNCH_BUTTON.addEventListener("click", this.checkForm.bind(this));        
     }
 
     checkForm() {
+        // Controle du formulaire avant lancement du Timer
         if(this.FIRST_ACTIVITY_DURATION.value == "00:00" || this.FIRST_ACTIVITY_DURATION.value == "" || this.SECOND_ACTIVITY_DURATION.value == "00:00" || this.SECOND_ACTIVITY_DURATION.value == "")
             this.ERROR_MESSAGE_AREA.innerText = "Merci de saisir des durées pour les activités.";
         else if(this.FIRST_ACTIVITY_LIST.options[this.FIRST_ACTIVITY_LIST.selectedIndex].value == this.SECOND_ACTIVITY_LIST.options[this.SECOND_ACTIVITY_LIST.selectedIndex].value)
@@ -55,6 +56,7 @@ export default class Form {
         let firstDurationValue = this.convertToMinutes(this.FIRST_ACTIVITY_DURATION.value);
         let secondDurationValue = this.convertToMinutes(this.SECOND_ACTIVITY_DURATION.value);
         
+        //  Une fois le formulaire vérifié, on prévient que le Timer peut être lancé en lui envoyant les données saisies par l'utilisateur.
         let event = new CustomEvent('formAskToLaunchTimer', { 
             detail:{
                 'userChoices': {
@@ -67,11 +69,30 @@ export default class Form {
         });
         document.dispatchEvent(event);
 
+        // Une fois le timer lancé la première fois, on a la possibilité de changer et d'en lancer un nouveau à la place. 
+        //Si l'utilisateur change d'avis, il peut utiliser le bouton Annuler pour refermer la popup et le formulaire.
         this.CANCEL_BUTTON.disabled = false;
         this.CANCEL_BUTTON.addEventListener("click", (e)=>{
             let event = new CustomEvent('changeTimerCancelled');
             document.dispatchEvent(event);
         });
+    }
+    
+    show() {
+        this.FORM_POPUP.style.visibility = 'visible';
+        this.FORM_MODAL.style.visibility = 'visible';
+        this.modalShowAnimation.play(0);
+        this.popupShowAnimation.play(0);
+    }
+    
+    hide() {
+        this.modalHideAnimation.play(0);
+        this.popupHideAnimation.play(0);
+    }
+    
+    disableForm() {
+        this.FORM_POPUP.style.visibility = 'hidden';
+        this.FORM_MODAL.style.visibility = 'hidden';
     }
 
     convertToMinutes(pTimeInputValue) {
@@ -82,22 +103,5 @@ export default class Form {
         else
             timeInMinutes = parseInt(split[1]);
         return timeInMinutes;
-    }
-    
-    show() {
-        this.FORM_POPUP.style.visibility = 'visible';
-        this.FORM_MODAL.style.visibility = 'visible';
-        this.modalShowAnimation.play(0);
-        this.popupShowAnimation.play(0);
-    }
-
-    hide() {
-        this.modalHideAnimation.play(0);
-        this.popupHideAnimation.play(0);
-    }
-
-    disableForm() {
-        this.FORM_POPUP.style.visibility = 'hidden';
-        this.FORM_MODAL.style.visibility = 'hidden';
     }
 }

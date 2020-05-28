@@ -10,7 +10,9 @@ export default class Config {
             {icon: "assets/images/197.svg", name: "Atelier Cuisine"},
             {icon: "assets/images/037.svg", name: "Sortie"}
         ];
-        this.minuteDuration = 10; // Utile pour les tests
-        this.isTestMode = false; // Utile pour les tests
+
+         // Utile pour les tests
+        this.minuteDuration = 10;
+        this.isTestMode = false; 
     }
 }

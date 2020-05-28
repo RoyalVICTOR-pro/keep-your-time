@@ -3,7 +3,7 @@ import LostTimeStopWatch from "./class.lost-time-stopwatch";
 
 export default class Timer {
     constructor(pActivitiesList, pMinuteDuration) {
-        // Eléments HTML utiles
+        // Elément(s) HTML manipulé(s)
         this.FIRST_ACTIVITY_BACKGROUND = document.getElementById('first-activity-background');
         this.FIRST_ACTIVITY_ICON = document.getElementById('first-activity-icon'); 
         this.FIRST_ACTIVITY_NAME = document.getElementById('first-activity-name'); 
@@ -16,6 +16,7 @@ export default class Timer {
         this.CURSOR = document.getElementById('cursor'); 
         this.TIMELINE = document.getElementById('timeline'); 
         
+        // Initialisation de la classe
         this.ACTIVITIES_LIST = pActivitiesList;
         this.MINUTE_DURATION = pMinuteDuration;
         this.isRunning = false;
@@ -23,21 +24,24 @@ export default class Timer {
     }
 
     prepare (pUserChoices){
+        /* 
+        Ici, on prépare le timer en fonction des choix de l'utilisateur. 
+        On change les dimensions des fonds de couleurs, 
+        on prépare l'animation du curseur sur la durée des 2 activités
+        */
+
         this.userChoices = pUserChoices;
 
         this.FIRST_ACTIVITY_ICON.src = this.ACTIVITIES_LIST[this.userChoices.firstActivityIndex].icon;
         this.SECOND_ACTIVITY_ICON.src = this.ACTIVITIES_LIST[this.userChoices.secondActivityIndex].icon;
         this.FIRST_ACTIVITY_NAME.innerHTML = this.ACTIVITIES_LIST[this.userChoices.firstActivityIndex].name;
         this.SECOND_ACTIVITY_NAME.innerHTML = this.ACTIVITIES_LIST[this.userChoices.secondActivityIndex].name;
-        
-        this.STOP_TIMER_BUTTON.addEventListener("click", this.endFirstActivity.bind(this));
-        this.STOP_TIMER_BUTTON.style.visibility = 'visible';
-
-        // Changement des proportions du fond (On fait les calculs sur une base de 90 car il y a des marges de chaque côté et le curseur court sur 90vw et non 100)
+                
+        // (Changement des proportions du fond : On fait les calculs sur une base de 90 car il y a des marges de chaque côté et le curseur court sur 90vw et non 100)
         let backgroundSize = Math.floor((this.userChoices.firstActivityDuration*90)/(this.userChoices.firstActivityDuration + this.userChoices.secondActivityDuration));
         this.FIRST_ACTIVITY_BACKGROUND.style.width = backgroundSize + "vw";
         this.SECOND_ACTIVITY_BACKGROUND.style.width = (90 - backgroundSize) + "vw"; 
- 
+        
         // Réglages des paramètres du curseur
         this.cursorTween = gsap.timeline();
         this.cursorTween.to(this.CURSOR, {
@@ -51,10 +55,10 @@ export default class Timer {
             duration: this.userChoices.secondActivityDuration*this.MINUTE_DURATION, 
             ease: "none"
         });
-        //this.cursorTween.pause();
 
-        if(this.lostTimeStopWatch)
-            this.lostTimeStopWatch = null;
+        // On affiche le bouton qui permet d'avertir que la première activité est terminée et qu'on passe à la 2ème. 
+        this.STOP_TIMER_BUTTON.addEventListener("click", this.endFirstActivity.bind(this));
+        this.STOP_TIMER_BUTTON.style.visibility = 'visible';
 
         let event = new CustomEvent('timerReady');
         document.dispatchEvent(event);
@@ -62,14 +66,17 @@ export default class Timer {
 
     start() {
         this.isRunning = true;
-        this.cursorTween.delay(1); // Si on change le delay de 1 secondes, pense à changer les 1000 millisecondes ajoutées dans le setTimeOut dans le code ci-dessous. 
+        this.cursorTween.delay(1); // Si on change le delay de 1 secondes, penser à changer les 1000 millisecondes ajoutées dans le setTimeOut dans le code ci-dessous 
         this.cursorTween.play();
         // Ci-dessous, on prend le temps choisi par l'utilisateur qu'on multiplie par la durée des minutes configurée pour les tests, 
-        // qu'on multiplie ensuite par 1000 pour avoir le temps en millisecondes et on y ajoute 1000 millisecondes qui permett
+        // qu'on multiplie ensuite par 1000 pour avoir le temps en millisecondes 
+        // et on y ajoute 1000 millisecondes qui permettent de prendre en compte le "delay" de fermeture de la popup 
+        // avant le lancement de l'animation du curseur. 
         this.firstActivityTimer = setTimeout(this.firstActivityTimeIsOver.bind(this), this.userChoices.firstActivityDuration*this.MINUTE_DURATION*1000+1000);
     }
 
     firstActivityTimeIsOver() {
+        // Le temps prévu pour la première activité est écoulé
         if(!this.isFirstActivityFinished) {
             this.lostTimeStopWatch = new LostTimeStopWatch(this.SECOND_ACTIVITY_BACKGROUND, this.userChoices.secondActivityDuration, this.MINUTE_DURATION);
             this.lostTimeStopWatch.start();
@@ -77,12 +84,15 @@ export default class Timer {
     }
 
     endFirstActivity() {
+        // La première activité est terminée.
         this.isFirstActivityFinished = true;
 
         this.STOP_TIMER_BUTTON.style.visibility = 'hidden';
-        
+
+        // Si le chrono de dépassement existe, (donc que l'activité 1 a empiété sur l'activité 2) 
+        // on coupe l'animation du chrono pour montrer le temps perdu. 
+        // Sinon, on fait apparaître dans le fond une couleur montrant le temps gagné
         if(this.lostTimeStopWatch) {
-            console.log("Entré dans le if ");
             this.lostTimeStopWatch.pause();
         } else {
             let cursorPositions = this.CURSOR.getBoundingClientRect();
@@ -91,8 +101,7 @@ export default class Timer {
         }
     }
 
-    stopAllTimers() {
-        console.log("Stop All Timers Appelé !");
+    stopAllTimers() {        
         if(this.lostTimeStopWatch) {
             this.lostTimeStopWatch.kill();
             this.lostTimeStopWatch = null;
