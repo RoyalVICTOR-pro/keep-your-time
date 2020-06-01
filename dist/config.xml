@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<widget xmlns   = "http://www.w3.org/ns/widgets"
+    xmlns:gap   = "http://phonegap.com/ns/1.0"
+    id          = "com.cbie.keepyourtime"
+    ios-CFBundleVersion="0.0.1"
+    version     = "0.0.1" >
+
+  <name>Keep Your Time</name>
+  
+  <platform name="ios" />
+
+  <description>
+      App for kids to manage their times. 
+  </description>
+
+  <author href="https://fr.linkedin.com/in/royal-victor-b348b0143" email="royal.victor@gmail.com">
+      Royal VICTOR
+  </author>
+
+</widget>

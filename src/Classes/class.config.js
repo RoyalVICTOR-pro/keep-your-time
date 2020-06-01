@@ -12,7 +12,7 @@ export default class Config {
         ];
 
          // Utile pour les tests
-        this.minuteDuration = 10;
+        this.minuteDuration = 60;
         this.isTestMode = false; 
     }
 }
