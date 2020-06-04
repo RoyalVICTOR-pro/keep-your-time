@@ -1,275 +1,271 @@
 /* POLICES */
 @font-face {
-  font-family: 'CaptainIcon';
-  src: url('../fonts/captainicon.ttf') format('truetype'),
-    url('../fonts/captainicon.svg') format('svg'),
-    url('../fonts/captainicon.woff') format('woff');
+	font-family: 'CaptainIcon';
+	src: url('../fonts/captainicon.ttf') format('truetype'), url('../fonts/captainicon.svg') format('svg'), url('../fonts/captainicon.woff') format('woff');
 }
 
 @font-face {
-  font-family: 'MyStilda';
-  src: url('../fonts/stilda-script.otf');
+	font-family: 'MyStilda';
+	src: url('../fonts/stilda-script.otf');
 }
 
 @font-face {
-  font-family: 'MyRoboto';
-  src: url('../fonts/roboto-condensed.ttf') format('truetype');
+	font-family: 'MyRoboto';
+	src: url('../fonts/roboto-condensed.ttf') format('truetype');
 }
 
 @font-face {
-  font-family: 'MyNatural';
-  src: url('../fonts/natural.ttf') format('truetype'),
-    url('../fonts/natural.otf') format('otf'),
-    url('../fonts/natural.woff') format('woff'),
-    url('../fonts/natural.woff2') format('woff2');
+	font-family: 'MyNatural';
+	src: url('../fonts/natural.ttf') format('truetype'), url('../fonts/natural.otf') format('otf'), url('../fonts/natural.woff') format('woff'), url('../fonts/natural.woff2') format('woff2');
 }
 
 /* VARIABLES */
 :root {
-  --firstActivityColor: #ff785b;
-  --secondActivityColor: #4caf50;
-  --wonTimeColor: #3a873e;
-  --lostTimeColor: #af2816;
-  --darkIcons: #000000;
-  --secondaryColor: darkgrey;
+	--firstActivityColor: #ff785b;
+	--secondActivityColor: #4caf50;
+	--wonTimeColor: #3a873e;
+	--lostTimeColor: #af2816;
+	--darkIcons: #000000;
+	--secondaryColor: darkgrey;
 }
 
 /* STYLES */
 body {
-  margin: 0;
-  padding: 0;
-  display: flex;
+	margin: 0;
+	padding: 0;
+	display: flex;
 }
 #left-margin {
-  width: 5vw;
-  height: 100vh;
-  background-color: var(--firstActivityColor);
+	width: 5vw;
+	height: 100vh;
+	background-color: var(--firstActivityColor);
 }
 #right-margin {
-  background-color: var(--secondActivityColor);
-  width: 5vw;
-  height: 100vh;
+	background-color: var(--secondActivityColor);
+	width: 5vw;
+	height: 100vh;
 }
 #first-activity-background {
-  background-color: var(--firstActivityColor);
-  width: 45vw;
-  height: 100vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+	background-color: var(--firstActivityColor);
+	width: 45vw;
+	height: 100vh;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
 }
 #second-activity-background {
-  background-color: var(--secondActivityColor);
-  width: 45vw;
-  height: 100vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+	background-color: var(--secondActivityColor);
+	width: 45vw;
+	height: 100vh;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
 }
 #lost-time {
-  position: absolute;
-  z-index: 1;
-  background-color: var(--lostTimeColor);
-  height: 100vh;
-  width: 0;
-  /*
+	position: absolute;
+	z-index: 1;
+	background-color: var(--lostTimeColor);
+	height: 100vh;
+	width: 0;
+	/*
     left: 50vw;
     */
 }
 #won-time {
-  position: absolute;
-  z-index: 1;
-  background-color: var(--wonTimeColor);
-  height: 100vh;
-  /*
+	position: absolute;
+	z-index: 1;
+	background-color: var(--wonTimeColor);
+	height: 100vh;
+	/*
     width: 20vw;
     left: 10vw;
     */
 }
 #first-activity-icon,
 #second-activity-icon {
-  z-index: 2;
+	z-index: 2;
 }
 #first-activity-icon,
 #second-activity-icon {
-  width: 50px;
+	width: 50px;
 }
 .activity-name {
-  font-family: MyRoboto;
-  z-index: 2;
+	font-family: MyRoboto;
+	z-index: 2;
 }
 #stop-timer-button {
-  position: absolute;
-  color: white;
-  width: 20vw;
-  height: 7vh;
-  left: 40vw;
-  bottom: 2vh;
-  padding: 1vw;
-  font-family: MyRoboto;
-  background-color: black;
-  border: 0;
-  z-index: 3;
-  display: block;
-  visibility: hidden;
+	position: absolute;
+	color: white;
+	width: 20vw;
+	height: 7vh;
+	left: 40vw;
+	bottom: 2vh;
+	padding: 1vw;
+	font-family: MyRoboto;
+	background-color: black;
+	border: 0;
+	z-index: 3;
+	display: block;
+	visibility: hidden;
 }
 #stop-timer-button:before {
-  color: white;
-  font-family: CaptainIcon;
-  content: '\e6d2';
-  font-size: 20px;
-  margin-right: 1vw;
+	color: white;
+	font-family: CaptainIcon;
+	content: '\e6d2';
+	font-size: 20px;
+	margin-right: 1vw;
 }
 #settings-button {
-  position: absolute;
-  top: 2vh;
-  right: 2vh;
-  z-index: 3;
-  display: none;
+	position: absolute;
+	top: 2vh;
+	right: 2vh;
+	z-index: 3;
+	display: block;
+	visibility: hidden;
 }
 #settings-button:before {
-  color: var(--darkIcons);
-  font-family: CaptainIcon;
-  content: '\e606';
-  font-size: 3rem;
+	color: var(--darkIcons);
+	font-family: CaptainIcon;
+	content: '\e606';
+	font-size: 3rem;
 }
 #timeline {
-  position: absolute;
-  left: 5vw;
-  width: 90vw;
-  height: 1vh;
-  bottom: 10vh;
-  background-color: var(--secondaryColor);
-  border: 1px solid black;
-  z-index: 3;
+	position: absolute;
+	left: 5vw;
+	width: 90vw;
+	height: 1vh;
+	bottom: 10vh;
+	background-color: var(--secondaryColor);
+	border: 1px solid black;
+	z-index: 3;
 }
 #cursor {
-  position: absolute;
-  width: 10vw;
-  height: 20vh;
-  left: 0vw;
-  bottom: 11vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  align-items: center;
-  z-index: 3;
+	position: absolute;
+	width: 10vw;
+	height: 20vh;
+	left: 0vw;
+	bottom: 11vh;
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-end;
+	align-items: center;
+	z-index: 3;
 }
 #caracter:before {
-  font-family: CaptainIcon;
-  content: '\e72e';
-  font-size: 7vw;
-  color: var(--darkIcons);
-  margin-left: 3px;
-  z-index: 3;
+	font-family: CaptainIcon;
+	content: '\e72e';
+	font-size: 7vw;
+	color: var(--darkIcons);
+	margin-left: 3px;
+	z-index: 3;
 }
 #cursor-pointer:before {
-  font-family: CaptainIcon;
-  content: '\e601';
-  font-size: 3vw;
-  color: var(--darkIcons);
-  margin-left: 3px;
-  z-index: 3;
+	font-family: CaptainIcon;
+	content: '\e601';
+	font-size: 3vw;
+	color: var(--darkIcons);
+	margin-left: 3px;
+	z-index: 3;
 }
 #modal {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: black;
-  opacity: 0;
-  z-index: 4;
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background-color: black;
+	opacity: 0;
+	z-index: 4;
 }
 #popup {
-  background-color: white;
-  border-radius: 10px;
-  position: absolute;
-  left: 20vw;
-  top: 10vh;
-  width: 50vw;
-  height: 70vh;
-  z-index: 5;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 5vh 5vw;
-  opacity: 0;
+	background-color: white;
+	border-radius: 10px;
+	position: absolute;
+	left: 20vw;
+	top: 10vh;
+	width: 50vw;
+	height: 70vh;
+	z-index: 5;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	padding: 5vh 5vw;
+	opacity: 0;
 }
 #logo:before {
-  display: block;
-  font-family: CaptainIcon;
-  content: '\e60c';
-  font-size: 10vh;
-  margin-left: auto;
-  margin-right: auto;
-  width: 10vh;
-  color: var(--secondActivityColor);
+	display: block;
+	font-family: CaptainIcon;
+	content: '\e60c';
+	font-size: 10vh;
+	margin-left: auto;
+	margin-right: auto;
+	width: 10vh;
+	color: var(--secondActivityColor);
 }
 #app-name {
-  font-family: MyStilda;
-  font-size: 3rem;
-  margin-top: 0;
-  margin-bottom: 5vh;
-  align-self: center;
-  color: var(--firstActivityColor);
+	font-family: MyStilda;
+	font-size: 3rem;
+	margin-top: 0;
+	margin-bottom: 5vh;
+	align-self: center;
+	color: var(--firstActivityColor);
 }
 #error {
-  font-family: MyRoboto;
-  color: darkred;
-  font-size: 1rem;
-  margin-bottom: 1vh;
-  padding-bottom: 1vh;
-  display: block;
+	font-family: MyRoboto;
+	color: darkred;
+	font-size: 1rem;
+	margin-bottom: 1vh;
+	padding-bottom: 1vh;
+	display: block;
 }
 #error span {
-  font-family: CaptainIcon;
-  font-size: 2rem;
-  margin-right: 1vw;
+	font-family: CaptainIcon;
+	font-size: 2rem;
+	margin-right: 1vw;
 }
 #popup label {
-  margin-bottom: 1vh;
-  font-family: MyRoboto;
+	margin-bottom: 1vh;
+	font-family: MyRoboto;
 }
 #popup select {
-  margin-bottom: 1vh;
-  width: 15vw;
-  height: 4vh;
+	margin-bottom: 1vh;
+	width: 15vw;
+	height: 4vh;
 }
 #popup input {
-  margin-bottom: 3vh;
-  width: 6vw;
-  overflow: visible;
+	margin-bottom: 3vh;
+	width: 6vw;
+	overflow: visible;
 }
 #popup button {
-  padding: 1vh;
-  width: 10vw;
+	padding: 1vh;
+	width: 10vw;
 }
 #popup button#launch {
-  background-color: var(--secondActivityColor); /* Green */
-  border: none;
-  color: white;
-  padding: 15px 32px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 16px;
+	background-color: var(--secondActivityColor); /* Green */
+	border: none;
+	color: white;
+	padding: 15px 32px;
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+	font-size: 16px;
 }
 #popup button#cancel {
-  background-color: var(--secondaryColor); /* Grey */
-  border: none;
-  color: white;
-  padding: 15px 32px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 16px;
+	background-color: var(--secondaryColor); /* Grey */
+	border: none;
+	color: white;
+	padding: 15px 32px;
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+	font-size: 16px;
 }
 #popup .button-container {
-  margin-top: 2vh;
-  width: 100%;
-  display: flex;
-  justify-content: space-around;
+	margin-top: 2vh;
+	width: 100%;
+	display: flex;
+	justify-content: space-around;
 }

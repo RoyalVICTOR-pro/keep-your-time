@@ -13,6 +13,8 @@ export default class Form {
 		this.htmlCancelButton = document.getElementById('cancel');
 		this.htmlLaunchButton = document.getElementById('launch');
 		this.htmlErrorMessageArea = document.getElementById('error');
+		this.htmlSettingsButton = document.getElementById('settings-button');
+
 		this.alreadyShownOnce = false;
 	}
 
@@ -30,13 +32,34 @@ export default class Form {
 			this.htmlSecondActivityList[key] = new Option(element.name, key);
 		});
 
-		this.htmlCancelButton.addEventListener(CONFIG.BUTTON_INTERACTION_EVENT, (e) => {
-			let event = new CustomEvent(CONFIG.CHANGE_TIMER_CANCELLED_EVENT);
-			document.dispatchEvent(event);
-		});
+		this.htmlCancelButton.addEventListener(CONFIG.BUTTON_INTERACTION_EVENT, this.hide.bind(this));
 
 		// Attente de validation du formulaire
 		this.htmlLaunchButton.addEventListener(CONFIG.BUTTON_INTERACTION_EVENT, this.checkForm.bind(this));
+	}
+
+	show() {
+		// Mise en place de valeur par défaut pour les tests
+		if (CONFIG.IS_TEST_MODE) {
+			this.htmlFirstActivityList.value = CONFIG.TEST_FIRST_ACTIVITY_INDEX;
+			this.htmlSecondActivityList.value = CONFIG.TEST_SECOND_ACTIVITY_INDEX;
+			this.htmlFirstActivityDuration.value = CONFIG.TEST_FIRST_ACTIVITY_DURATION;
+			this.htmlSecondActivityDuration.value = CONFIG.TEST_SECOND_ACTIVITY_DURATION;
+		}
+
+		// Si ce n'est pas la première fois que le formulaire est affiché, on active le bouton.
+		if (this.alreadyShownOnce) {
+			this.htmlCancelButton.disabled = false;
+		}
+		this.alreadyShownOnce = true;
+
+		this.htmlFormPopup.style.visibility = 'visible';
+		this.htmlFormModal.style.visibility = 'visible';
+		this.modalShowAnimation.play(0);
+		this.popupShowAnimation.play(0);
+
+		// Quand on affiche le formulaire, on masque et désactive le bouton de réglages
+		this.hideFormSettingsButton();
 	}
 
 	checkForm() {
@@ -70,30 +93,33 @@ export default class Form {
 		document.dispatchEvent(event);
 	}
 
-	show() {
-		// Mise en place de valeur par défaut pour les tests
-		if (CONFIG.IS_TEST_MODE) {
-			this.htmlFirstActivityList.value = CONFIG.TEST_FIRST_ACTIVITY_INDEX;
-			this.htmlSecondActivityList.value = CONFIG.TEST_SECOND_ACTIVITY_INDEX;
-			this.htmlFirstActivityDuration.value = CONFIG.TEST_FIRST_ACTIVITY_DURATION;
-			this.htmlSecondActivityDuration.value = CONFIG.TEST_SECOND_ACTIVITY_DURATION;
-		}
-
-		// Si ce n'est pas la première fois que le formulaire est affiché, on active le bouton.
-		if (this.alreadyShownOnce) {
-			this.htmlCancelButton.disabled = false;
-		}
-		this.alreadyShownOnce = true;
-
-		this.htmlFormPopup.style.visibility = 'visible';
-		this.htmlFormModal.style.visibility = 'visible';
-		this.modalShowAnimation.play(0);
-		this.popupShowAnimation.play(0);
-	}
-
 	hide() {
 		this.modalHideAnimation.play(0);
 		this.popupHideAnimation.play(0);
+
+		this.showFormOpeningButton();
+	}
+
+	showFormOpeningButton() {
+		this.htmlSettingsButton.style.opacity = 0;
+		this.htmlSettingsButton.style.visibility = 'visible';
+
+		this.htmlSettingsButton.addEventListener(CONFIG.BUTTON_INTERACTION_EVENT, this.show.bind(this));
+		gsap.to(this.htmlSettingsButton, {
+			opacity: 1,
+			duration: 1,
+			ease: 'none',
+		});
+	}
+
+	hideFormSettingsButton() {
+		this.htmlSettingsButton.removeEventListener(CONFIG.BUTTON_INTERACTION_EVENT, this.show.bind(this));
+
+		gsap.to(this.htmlSettingsButton, {
+			opacity: 0,
+			duration: 1,
+			ease: 'none',
+		});
 	}
 
 	disableForm() {
