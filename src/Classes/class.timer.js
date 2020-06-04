@@ -1,6 +1,7 @@
 import { gsap } from 'gsap';
 import CONFIG from '../config';
 import LostTimeStopWatch from './class.lost-time-stopwatch';
+import WonTimeMarker from './class.won-time-marker';
 
 export default class Timer {
 	constructor() {
@@ -9,7 +10,6 @@ export default class Timer {
 		this.htmlFirstActivityIcon = document.getElementById('first-activity-icon');
 		this.htmlFirstActivityName = document.getElementById('first-activity-name');
 		this.htmlStopTimerButton = document.getElementById('stop-timer-button');
-		this.htmlWonTime = document.getElementById('won-time');
 		this.htmlSecondActivityBackground = document.getElementById('second-activity-background');
 		this.htmlSecondActivityIcon = document.getElementById('second-activity-icon');
 		this.htmlSecondActivityName = document.getElementById('second-activity-name');
@@ -93,9 +93,8 @@ export default class Timer {
 		if (this.lostTimeStopWatch) {
 			this.lostTimeStopWatch.pause();
 		} else {
-			let cursorPositions = this.htmlCursor.getBoundingClientRect();
-			this.htmlWonTime.style.left = cursorPositions.left + this.htmlCursor.offsetWidth / 2 + 'px';
-			this.htmlWonTime.style.width = this.htmlFirstActivityBackground.offsetWidth - cursorPositions.left + 'px';
+			this.wonTimeMarker = new WonTimeMarker();
+			this.wonTimeMarker.showAt(this.htmlCursor.getBoundingClientRect(), this.htmlFirstActivityBackground.offsetWidth, this.htmlCursor.offsetWidth);
 		}
 	}
 
@@ -107,10 +106,14 @@ export default class Timer {
 			clearTimeout(this.firstActivityTimer);
 		}
 
+		if (this.wonTimeMarker) {
+			this.wonTimeMarker.kill();
+			this.wonTimeMarker = null;
+		}
+
 		this.isFirstActivityFinished = false;
 		this.htmlStopTimerButton.style.visibility = 'visible';
 		this.isRunning = false;
 		this.cursorTween.pause(0);
-		this.htmlWonTime.style.width = 0;
 	}
 }

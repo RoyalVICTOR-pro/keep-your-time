@@ -17,7 +17,9 @@ window.onload = function () {
 	document.addEventListener(CONFIG.TIMER_DATA_READY_EVENT, prepareTimer);
 
 	function prepareTimer(e) {
-		if (appTimer.isRunning) appTimer.stopAllTimers();
+		if (appTimer.isRunning) {
+			appTimer.stopAllTimers();
+		}
 
 		appTimer.prepare(e.detail.userChoices);
 		// On attend que le timer soit prêt en arrière-plan pour masquer le formulaire et lancer le timer
