@@ -10,8 +10,8 @@ Faire apparaître une popup qui contient :
     - Sélecteur heures/minutes/secondes pour l'activité 2
     - Bouton Lancer
     - Bouton Annuler grisé à l'origine et visible si le timer est en cours
-Au lancement, la popup se referme et fait apparaître le timer.
-Une icone réglage permet de refaire apparaître la popup pour modifier.
+Au lancement, le popup se referme et fait apparaître le timer.
+Une icone réglage permet de refaire apparaître le popup pour modifier.
 Un bouton 'Cette activité est terminée' apparaîtra alors pour permettre d'indiquer que la première activité est terminée
 et qu'on passe à la deuxième.
 
@@ -19,7 +19,7 @@ Organisation du développement :
 Tout le HTML dans le fichier
 CSS pour la mise en forme intiale
     Voir s'il ne faut pas une classe pour l'état initiale qu'on pourrait enlever et remettre.
-JS pour contrôler l'apparition de la popup
+JS pour contrôler l'apparition du popup
 Animation du timer en Greensock
 
 Une partie dédiée à la configuration

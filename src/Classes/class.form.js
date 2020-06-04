@@ -13,10 +13,11 @@ export default class Form {
 		this.htmlCancelButton = document.getElementById('cancel');
 		this.htmlLaunchButton = document.getElementById('launch');
 		this.htmlErrorMessageArea = document.getElementById('error');
+		this.alreadyShownOnce = false;
 	}
 
 	init() {
-		// Préparation des animations d'apparition et de disparition de la popup du formulaire
+		// Préparation des animations d'apparition et de disparition du popup du formulaire
 		this.modalShowAnimation = gsap.to(this.htmlFormModal, { opacity: 0.7, duration: 1, ease: 'none' }).pause();
 		this.popupShowAnimation = gsap.to(this.htmlFormPopup, { opacity: 1, duration: 1, ease: 'none' }).pause();
 
@@ -27,6 +28,11 @@ export default class Form {
 		CONFIG.ACTIVITIES_LIST.forEach((element, key) => {
 			this.htmlFirstActivityList[key] = new Option(element.name, key);
 			this.htmlSecondActivityList[key] = new Option(element.name, key);
+		});
+
+		this.htmlCancelButton.addEventListener(CONFIG.BUTTON_INTERACTION_EVENT, (e) => {
+			let event = new CustomEvent(CONFIG.CHANGE_TIMER_CANCELLED_EVENT);
+			document.dispatchEvent(event);
 		});
 
 		// Attente de validation du formulaire
@@ -62,24 +68,22 @@ export default class Form {
 			},
 		});
 		document.dispatchEvent(event);
-
-		// Une fois le timer lancé la première fois, on a la possibilité de changer et d'en lancer un nouveau à la place.
-		//Si l'utilisateur change d'avis, il peut utiliser le bouton Annuler pour refermer la popup et le formulaire.
-		this.htmlCancelButton.disabled = false;
-		this.htmlCancelButton.addEventListener(CONFIG.BUTTON_INTERACTION_EVENT, (e) => {
-			let event = new CustomEvent(CONFIG.CHANGE_TIMER_CANCELLED_EVENT);
-			document.dispatchEvent(event);
-		});
 	}
 
 	show() {
 		// Mise en place de valeur par défaut pour les tests
 		if (CONFIG.IS_TEST_MODE) {
-			this.htmlFirstActivityList.value = 1;
-			this.htmlSecondActivityList.value = 6;
-			this.htmlFirstActivityDuration.value = '00:01';
-			this.htmlSecondActivityDuration.value = '00:03';
+			this.htmlFirstActivityList.value = CONFIG.TEST_FIRST_ACTIVITY_INDEX;
+			this.htmlSecondActivityList.value = CONFIG.TEST_SECOND_ACTIVITY_INDEX;
+			this.htmlFirstActivityDuration.value = CONFIG.TEST_FIRST_ACTIVITY_DURATION;
+			this.htmlSecondActivityDuration.value = CONFIG.TEST_SECOND_ACTIVITY_DURATION;
 		}
+
+		// Si ce n'est pas la première fois que le formulaire est affiché, on active le bouton.
+		if (this.alreadyShownOnce) {
+			this.htmlCancelButton.disabled = false;
+		}
+		this.alreadyShownOnce = true;
 
 		this.htmlFormPopup.style.visibility = 'visible';
 		this.htmlFormModal.style.visibility = 'visible';

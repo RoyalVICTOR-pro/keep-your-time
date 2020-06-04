@@ -67,7 +67,7 @@ export default class Timer {
 		this.cursorTween.play();
 		// Ci-dessous, on prend le temps choisi par l'utilisateur qu'on multiplie par la durée des minutes configurée pour les tests,
 		// qu'on multiplie ensuite par 1000 pour avoir le temps en millisecondes
-		// et on y ajoute le "delay" de fermeture de la popup
+		// et on y ajoute le "delay" de fermeture du popup
 		// avant le lancement de l'animation du curseur.
 		this.firstActivityTimer = setTimeout(this.firstActivityTimeIsOver.bind(this), this.userChoices.firstActivityDuration * CONFIG.MINUTE_DURATION * 1000 + CONFIG.POPUP_CLOSING_DELAY * 1000);
 	}
