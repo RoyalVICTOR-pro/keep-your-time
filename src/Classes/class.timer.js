@@ -1,7 +1,7 @@
 import { gsap } from 'gsap';
 import CONFIG from '../config';
-import LostTimeStopWatch from './class.lost-time-stopwatch';
-import WonTimeMarker from './class.won-time-marker';
+import LostTimeStopWatchView from './views/class.lost-time-stopwatch-view';
+import WonTimeMarkerView from './views/class.won-time-marker-view';
 
 export default class Timer {
 	constructor() {
@@ -75,8 +75,8 @@ export default class Timer {
 	firstActivityTimeIsOver() {
 		// Le temps prévu pour la première activité est écoulé
 		if (!this.isFirstActivityFinished) {
-			this.lostTimeStopWatch = new LostTimeStopWatch(this.htmlSecondActivityBackground, this.userChoices.secondActivityDuration);
-			this.lostTimeStopWatch.init();
+			this.lostTimeStopWatch = new LostTimeStopWatchView();
+			this.lostTimeStopWatch.init(this.htmlSecondActivityBackground, this.userChoices.secondActivityDuration);
 			this.lostTimeStopWatch.start();
 		}
 	}
@@ -93,8 +93,8 @@ export default class Timer {
 		if (this.lostTimeStopWatch) {
 			this.lostTimeStopWatch.pause();
 		} else {
-			this.wonTimeMarker = new WonTimeMarker();
-			this.wonTimeMarker.showAt(this.htmlCursor.getBoundingClientRect(), this.htmlFirstActivityBackground.offsetWidth, this.htmlCursor.offsetWidth);
+			this.wonTimeMarker = new WonTimeMarkerView();
+			this.wonTimeMarker.showAt(this.htmlCursor.getBoundingClientRect(), this.htmlCursor.offsetWidth, this.htmlFirstActivityBackground.offsetWidth);
 		}
 	}
 

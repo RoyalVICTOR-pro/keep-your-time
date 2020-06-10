@@ -1,15 +1,15 @@
 import { gsap } from 'gsap';
-import CONFIG from '../config';
+import CONFIG from '../../config';
 
-export default class LostTimeStopWatch {
-	constructor(pSecondActivityBackground, pSecondActivityDuration) {
+export default class LostTimeStopWatchView {
+	constructor() {
 		// Element(s) HTML manipulé(s)
 		this.htmlLostTime = document.getElementById('lost-time');
 
 		this.isLostTimeStopWatchRunning = false;
 	}
 
-	init() {
+	init(pSecondActivityBackground, pSecondActivityDuration) {
 		// On positionne le fond qui représente le temps perdu et on l'anime de façon à ce qu'il s'agrandisse.
 		let backgroundRect = pSecondActivityBackground.getBoundingClientRect();
 		this.lostTimeXPos = backgroundRect.left;

@@ -59,7 +59,7 @@ export default class Form {
 		this.popupShowAnimation.play(0);
 
 		// Quand on affiche le formulaire, on masque et désactive le bouton de réglages
-		this.hideFormSettingsButton();
+		this.hideFormOpeningButton();
 	}
 
 	checkForm() {
@@ -112,7 +112,7 @@ export default class Form {
 		});
 	}
 
-	hideFormSettingsButton() {
+	hideFormOpeningButton() {
 		this.htmlSettingsButton.removeEventListener(CONFIG.BUTTON_INTERACTION_EVENT, this.show.bind(this));
 
 		gsap.to(this.htmlSettingsButton, {
