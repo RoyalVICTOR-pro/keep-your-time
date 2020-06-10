@@ -59,7 +59,7 @@ export default class Form {
 		this.popupShowAnimation.play(0);
 
 		// Quand on affiche le formulaire, on masque et désactive le bouton de réglages
-		this.hideFormOpeningButton();
+		this.();
 	}
 
 	checkForm() {

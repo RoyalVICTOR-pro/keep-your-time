@@ -1,13 +1,13 @@
 import 'babel-polyfill';
 import { gsap } from 'gsap';
 import CONFIG from './config';
-import Timer from './Classes/class.timer';
+import TimerController from './Classes/class.timer-controller';
 import Form from './Classes/class.form';
 
 window.onload = function () {
 	// Initialisation
 	let appForm = new Form();
-	let appTimer = new Timer();
+	let appTimer = new TimerController();
 
 	// On affiche le formulaire
 	appForm.init();

@@ -3,7 +3,7 @@ import CONFIG from '../config';
 import LostTimeStopWatchView from './views/class.lost-time-stopwatch-view';
 import WonTimeMarkerView from './views/class.won-time-marker-view';
 
-export default class Timer {
+export default class TimerView {
 	constructor() {
 		// Elément(s) HTML manipulé(s)
 		this.htmlFirstActivityBackground = document.getElementById('first-activity-background');
@@ -14,10 +14,6 @@ export default class Timer {
 		this.htmlSecondActivityIcon = document.getElementById('second-activity-icon');
 		this.htmlSecondActivityName = document.getElementById('second-activity-name');
 		this.htmlCursor = document.getElementById('cursor');
-
-		// Initialisation de la classe
-		this.isRunning = false;
-		this.isFirstActivityFinished = false;
 	}
 
 	prepare(pUserChoices) {
@@ -62,7 +58,6 @@ export default class Timer {
 	}
 
 	start() {
-		this.isRunning = true;
 		this.cursorTween.delay(CONFIG.POPUP_CLOSING_DELAY);
 		this.cursorTween.play();
 		// Ci-dessous, on prend le temps choisi par l'utilisateur qu'on multiplie par la durée des minutes configurée pour les tests,
@@ -73,47 +68,11 @@ export default class Timer {
 	}
 
 	firstActivityTimeIsOver() {
-		// Le temps prévu pour la première activité est écoulé
-		if (!this.isFirstActivityFinished) {
-			this.lostTimeStopWatchView = new LostTimeStopWatchView();
-			this.lostTimeStopWatchView.init(this.htmlSecondActivityBackground, this.userChoices.secondActivityDuration);
-			this.lostTimeStopWatchView.start();
-		}
+		// TODO : Dispatch Event pour appelé la méthode dans le controller
 	}
 
 	endFirstActivity() {
-		// La première activité est terminée.
-		this.isFirstActivityFinished = true;
-
 		this.htmlStopTimerButton.style.visibility = 'hidden';
-
-		// Si le chrono de dépassement existe, (donc que l'activité 1 a empiété sur l'activité 2)
-		// on coupe l'animation du chrono pour montrer le temps perdu.
-		// Sinon, on fait apparaître dans le fond une couleur montrant le temps gagné
-		if (this.lostTimeStopWatchView) {
-			this.lostTimeStopWatchView.pause();
-		} else {
-			this.wonTimeMarkerView = new WonTimeMarkerView();
-			this.wonTimeMarkerView.showAt(this.htmlCursor.getBoundingClientRect(), this.htmlCursor.offsetWidth, this.htmlFirstActivityBackground.offsetWidth);
-		}
-	}
-
-	stopAllTimers() {
-		if (this.lostTimeStopWatchView) {
-			this.lostTimeStopWatchView.kill();
-			this.lostTimeStopWatchView = null;
-		} else {
-			clearTimeout(this.firstActivityTimer);
-		}
-
-		if (this.wonTimeMarkerView) {
-			this.wonTimeMarkerView.kill();
-			this.wonTimeMarkerView = null;
-		}
-
-		this.isFirstActivityFinished = false;
-		this.htmlStopTimerButton.style.visibility = 'visible';
-		this.isRunning = false;
-		this.cursorTween.pause(0);
+		// TODO : Dispatch Event pour appelé la méthode dans le controller
 	}
 }
