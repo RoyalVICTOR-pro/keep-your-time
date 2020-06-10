@@ -75,9 +75,9 @@ export default class Timer {
 	firstActivityTimeIsOver() {
 		// Le temps prévu pour la première activité est écoulé
 		if (!this.isFirstActivityFinished) {
-			this.lostTimeStopWatch = new LostTimeStopWatchView();
-			this.lostTimeStopWatch.init(this.htmlSecondActivityBackground, this.userChoices.secondActivityDuration);
-			this.lostTimeStopWatch.start();
+			this.lostTimeStopWatchView = new LostTimeStopWatchView();
+			this.lostTimeStopWatchView.init(this.htmlSecondActivityBackground, this.userChoices.secondActivityDuration);
+			this.lostTimeStopWatchView.start();
 		}
 	}
 
@@ -90,25 +90,25 @@ export default class Timer {
 		// Si le chrono de dépassement existe, (donc que l'activité 1 a empiété sur l'activité 2)
 		// on coupe l'animation du chrono pour montrer le temps perdu.
 		// Sinon, on fait apparaître dans le fond une couleur montrant le temps gagné
-		if (this.lostTimeStopWatch) {
-			this.lostTimeStopWatch.pause();
+		if (this.lostTimeStopWatchView) {
+			this.lostTimeStopWatchView.pause();
 		} else {
-			this.wonTimeMarker = new WonTimeMarkerView();
-			this.wonTimeMarker.showAt(this.htmlCursor.getBoundingClientRect(), this.htmlCursor.offsetWidth, this.htmlFirstActivityBackground.offsetWidth);
+			this.wonTimeMarkerView = new WonTimeMarkerView();
+			this.wonTimeMarkerView.showAt(this.htmlCursor.getBoundingClientRect(), this.htmlCursor.offsetWidth, this.htmlFirstActivityBackground.offsetWidth);
 		}
 	}
 
 	stopAllTimers() {
-		if (this.lostTimeStopWatch) {
-			this.lostTimeStopWatch.kill();
-			this.lostTimeStopWatch = null;
+		if (this.lostTimeStopWatchView) {
+			this.lostTimeStopWatchView.kill();
+			this.lostTimeStopWatchView = null;
 		} else {
 			clearTimeout(this.firstActivityTimer);
 		}
 
-		if (this.wonTimeMarker) {
-			this.wonTimeMarker.kill();
-			this.wonTimeMarker = null;
+		if (this.wonTimeMarkerView) {
+			this.wonTimeMarkerView.kill();
+			this.wonTimeMarkerView = null;
 		}
 
 		this.isFirstActivityFinished = false;
