@@ -2,30 +2,45 @@ import { gsap } from 'gsap';
 import CONFIG from '../config';
 import LostTimeStopWatchView from './views/class.lost-time-stopwatch-view';
 import WonTimeMarkerView from './views/class.won-time-marker-view';
+import TimerView from './class.timer-view';
 
 export default class TimerController {
 	constructor() {
-		// TODO : Initialiser le TimerView
+		this.timerView = new TimerView();
 
-		// Initialisation de la classe
 		this.isRunning = false;
 		this.isFirstActivityFinished = false;
 	}
 
 	prepare(pUserChoices) {
-		// TODO : Appeler le prepare du TimerView
+		this.userChoices = pUserChoices;
+		this.timerView.prepare(pUserChoices);
+		document.addEventListener(CONFIG.TIMER_VIEW_READY, this.timerIsReadyToLaunch.bind(this));
+		document.addEventListener(CONFIG.FIRST_ACTIVITY_ENDED, this.endFirstActivity.bind(this));
+	}
+
+	timerIsReadyToLaunch() {
+		let event = new CustomEvent(CONFIG.TIMER_READY_TO_LAUNCH_EVENT);
+		document.dispatchEvent(event);
 	}
 
 	start() {
 		this.isRunning = true;
-		// TODO : Appeler le start du TimerView
+
+		// Ci-dessous, on prend le temps choisi par l'utilisateur qu'on multiplie par la durée des minutes configurée pour les tests,
+		// qu'on multiplie ensuite par 1000 pour avoir le temps en millisecondes
+		// et on y ajoute le "delay" de fermeture du popup
+		// avant le lancement de l'animation du curseur.
+		this.firstActivityTimer = setTimeout(this.firstActivityTimeIsOver.bind(this), this.userChoices.firstActivityDuration * CONFIG.MINUTE_DURATION * 1000 + CONFIG.POPUP_CLOSING_DELAY * 1000);
+
+		this.timerView.start();
 	}
 
 	firstActivityTimeIsOver() {
 		// Le temps prévu pour la première activité est écoulé
 		if (!this.isFirstActivityFinished) {
 			this.lostTimeStopWatchView = new LostTimeStopWatchView();
-			this.lostTimeStopWatchView.init(this.htmlSecondActivityBackground, this.userChoices.secondActivityDuration);
+			this.lostTimeStopWatchView.init(this.userChoices.secondActivityDuration);
 			this.lostTimeStopWatchView.start();
 		}
 	}
@@ -41,7 +56,7 @@ export default class TimerController {
 			this.lostTimeStopWatchView.pause();
 		} else {
 			this.wonTimeMarkerView = new WonTimeMarkerView();
-			this.wonTimeMarkerView.showAt(this.htmlCursor.getBoundingClientRect(), this.htmlCursor.offsetWidth, this.htmlFirstActivityBackground.offsetWidth);
+			this.wonTimeMarkerView.show();
 		}
 	}
 
@@ -59,8 +74,8 @@ export default class TimerController {
 		}
 
 		this.isFirstActivityFinished = false;
-		this.htmlStopTimerButton.style.visibility = 'visible';
 		this.isRunning = false;
-		this.cursorTween.pause(0);
+		this.timerView.showStopTimerButton();
+		this.timerView.stop();
 	}
 }

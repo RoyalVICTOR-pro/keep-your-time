@@ -19,7 +19,9 @@ const CONFIG = {
 
 	CHANGE_TIMER_CANCELLED_EVENT: 'changeTimerCancelled',
 	TIMER_DATA_READY_EVENT: 'timerDataAreReady',
+	TIMER_VIEW_READY: 'timerViewReady',
 	TIMER_READY_TO_LAUNCH_EVENT: 'timerReady',
+	FIRST_ACTIVITY_ENDED: 'firstActivityEnded',
 	BUTTON_INTERACTION_EVENT: 'click',
 	POPUP_CLOSING_DELAY: 1,
 };
