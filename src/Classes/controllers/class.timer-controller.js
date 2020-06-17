@@ -1,8 +1,8 @@
 import { gsap } from 'gsap';
-import CONFIG from '../config';
-import LostTimeStopWatchView from './views/class.lost-time-stopwatch-view';
-import WonTimeMarkerView from './views/class.won-time-marker-view';
-import TimerView from './class.timer-view';
+import CONFIG from '../../config';
+import LostTimeStopWatchView from '../views/class.lost-time-stopwatch-view';
+import WonTimeMarkerView from '../views/class.won-time-marker-view';
+import TimerView from '../views/class.timer-view';
 
 export default class TimerController {
 	constructor() {

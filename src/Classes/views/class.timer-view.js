@@ -1,7 +1,5 @@
 import { gsap } from 'gsap';
-import CONFIG from '../config';
-import LostTimeStopWatchView from './views/class.lost-time-stopwatch-view';
-import WonTimeMarkerView from './views/class.won-time-marker-view';
+import CONFIG from '../../config';
 
 export default class TimerView {
 	constructor() {
@@ -14,10 +12,6 @@ export default class TimerView {
 		this.htmlSecondActivityIcon = document.getElementById('second-activity-icon');
 		this.htmlSecondActivityName = document.getElementById('second-activity-name');
 		this.htmlCursor = document.getElementById('cursor');
-
-		// Initialisation de la classe
-		this.isRunning = false;
-		this.isFirstActivityFinished = false;
 	}
 
 	prepare(pUserChoices) {
@@ -54,66 +48,34 @@ export default class TimerView {
 		});
 
 		// On affiche le bouton qui permet d'avertir que la première activité est terminée et qu'on passe à la 2ème.
-		this.htmlStopTimerButton.addEventListener(CONFIG.BUTTON_INTERACTION_EVENT, this.endFirstActivity.bind(this));
-		this.htmlStopTimerButton.style.visibility = 'visible';
+		this.htmlStopTimerButton.addEventListener(CONFIG.BUTTON_INTERACTION_EVENT, this.stopFirstActivity.bind(this));
+		this.showStopTimerButton();
 
-		let event = new CustomEvent(CONFIG.TIMER_READY_TO_LAUNCH_EVENT);
+		let event = new CustomEvent(CONFIG.TIMER_VIEW_READY);
 		document.dispatchEvent(event);
 	}
 
 	start() {
-		this.isRunning = true;
 		this.cursorTween.delay(CONFIG.POPUP_CLOSING_DELAY);
 		this.cursorTween.play();
-		// Ci-dessous, on prend le temps choisi par l'utilisateur qu'on multiplie par la durée des minutes configurée pour les tests,
-		// qu'on multiplie ensuite par 1000 pour avoir le temps en millisecondes
-		// et on y ajoute le "delay" de fermeture du popup
-		// avant le lancement de l'animation du curseur.
-		this.firstActivityTimer = setTimeout(this.firstActivityTimeIsOver.bind(this), this.userChoices.firstActivityDuration * CONFIG.MINUTE_DURATION * 1000 + CONFIG.POPUP_CLOSING_DELAY * 1000);
 	}
 
-	firstActivityTimeIsOver() {
-		// Le temps prévu pour la première activité est écoulé
-		if (!this.isFirstActivityFinished) {
-			this.lostTimeStopWatchView = new LostTimeStopWatchView();
-			this.lostTimeStopWatchView.init(this.htmlSecondActivityBackground, this.userChoices.secondActivityDuration);
-			this.lostTimeStopWatchView.start();
-		}
-	}
-
-	endFirstActivity() {
-		// La première activité est terminée.
-		this.isFirstActivityFinished = true;
-
-		this.htmlStopTimerButton.style.visibility = 'hidden';
-
-		// Si le chrono de dépassement existe, (donc que l'activité 1 a empiété sur l'activité 2)
-		// on coupe l'animation du chrono pour montrer le temps perdu.
-		// Sinon, on fait apparaître dans le fond une couleur montrant le temps gagné
-		if (this.lostTimeStopWatchView) {
-			this.lostTimeStopWatchView.pause();
-		} else {
-			this.wonTimeMarkerView = new WonTimeMarkerView();
-			this.wonTimeMarkerView.showAt(this.htmlCursor.getBoundingClientRect(), this.htmlCursor.offsetWidth, this.htmlFirstActivityBackground.offsetWidth);
-		}
-	}
-
-	stopAllTimers() {
-		if (this.lostTimeStopWatchView) {
-			this.lostTimeStopWatchView.kill();
-			this.lostTimeStopWatchView = null;
-		} else {
-			clearTimeout(this.firstActivityTimer);
-		}
-
-		if (this.wonTimeMarkerView) {
-			this.wonTimeMarkerView.kill();
-			this.wonTimeMarkerView = null;
-		}
-
-		this.isFirstActivityFinished = false;
-		this.htmlStopTimerButton.style.visibility = 'visible';
-		this.isRunning = false;
+	stop() {
 		this.cursorTween.pause(0);
+	}
+
+	stopFirstActivity() {
+		this.hideStopTimerButton();
+		let event = new CustomEvent(CONFIG.FIRST_ACTIVITY_ENDED);
+		console.log('TimerView -> stopFirstActivity -> FIRST_ACTIVITY_ENDED', CONFIG.FIRST_ACTIVITY_ENDED);
+		document.dispatchEvent(event);
+	}
+
+	showStopTimerButton() {
+		this.htmlStopTimerButton.style.visibility = 'visible';
+	}
+
+	hideStopTimerButton() {
+		this.htmlStopTimerButton.style.visibility = 'hidden';
 	}
 }

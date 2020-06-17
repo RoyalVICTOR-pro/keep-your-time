@@ -9,7 +9,7 @@ const CONFIG = {
 		{ icon: 'assets/images/197.svg', name: 'Atelier Cuisine' },
 		{ icon: 'assets/images/037.svg', name: 'Sortie' },
 	],
-	MINUTE_DURATION: 10,
+	MINUTE_DURATION: 60,
 
 	IS_TEST_MODE: false,
 	TEST_FIRST_ACTIVITY_INDEX: 1,

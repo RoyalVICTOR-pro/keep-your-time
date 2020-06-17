@@ -1,7 +1,7 @@
 import 'babel-polyfill';
 import { gsap } from 'gsap';
 import CONFIG from './config';
-import TimerController from './Classes/class.timer-controller';
+import TimerController from './Classes/controllers/class.timer-controller';
 import Form from './Classes/class.form';
 
 window.onload = function () {
